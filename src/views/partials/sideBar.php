@@ -17,8 +17,10 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Configurações</a></li>
                     <li><a class="dropdown-item" href="#!">Registro de atividades</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Sair</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="<?= $base ?>/logout">Sair</a></li>
                 </ul>
             </li>
         </ul>
@@ -29,22 +31,25 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Principal</div>
-                        <a class="nav-link" href="index.php?pagina=pages/dashboard">
+                        <a class="nav-link" href="<?= $base ?>/dashboard">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
+
                         <div class="sb-sidenav-menu-heading">Chamados</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Solicitação
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="index.php?pagina=pages/chamados/cadastro">Nova Solicitação</a>
-                                <a class="nav-link" href="index.php?pagina=pages/chamados/listar">Listar Solicitações</a>
+                                <a class="nav-link" href="<?= $base ?>/cadastro">Nova Solicitação</a>
+                                <a class="nav-link" href="<?= $base ?>/listar">Listar Solicitações</a>
                             </nav>
                         </div>
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Gestão
@@ -52,21 +57,24 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav" id="sidenavAccordionPages">
-                                <a class="nav-link" href="index.php?pagina=pages/chamados/setores">
+                                <a class="nav-link" href="<?= $base ?>/setores">
                                     Gerenciar Setores
                                 </a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTecnico" aria-expanded="false" aria-controls="collapseTecnico">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
-                            Técnico
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseTecnico" aria-labelledby="headingTecnico" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="index.php?pagina=pages/tecnico/chamados_atribuidos">Chamados Atribuídos</a>
-                            </nav>
-                        </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTecnico" aria-expanded="false" aria-controls="collapseTecnico">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                        Técnico
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseTecnico" aria-labelledby="headingTecnico" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="<?= $base ?>/tecnico/chamados_atribuidos">Chamados Atribuídos</a>
+                        </nav>
+                    </div>
+
+                    <!-- Menu de Usuários com verificação de permissão -->
+                    <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'admin'): ?>
                         <div class="sb-sidenav-menu-heading">Usuários</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -75,16 +83,33 @@
                         </a>
                         <div class="collapse" id="collapseUsuarios" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="index.php?pagina=pages/usuarios/cadastro_usuario">Cadastrar usuários com tipo</a>
-                                <a class="nav-link" href="index.php?pagina=pages/usuarios/resetar_senha">Resetar senhas</a>
+                                <a class="nav-link" href="<?= $base ?>/usuarios/cadastro_usuario">Cadastrar usuários com tipo</a>
+                                <a class="nav-link" href="<?= $base ?>/usuarios/resetar_senha">Resetar senhas</a>
                             </nav>
                         </div>
+                    <?php endif; ?>
+                        <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'admin'): ?>
+                            <div class="sb-sidenav-menu-heading">Usuários</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Gerenciar Usuário
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseUsuarios" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="">Cadastrar usuários com tipo</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Resetar senhas</a>
+                                </nav>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logado como:</div>
-                    Administrador
+                    <?php if (isset($_SESSION['usuario_tipo'])) {
+                        echo $_SESSION['usuario_tipo'];
+                    } ?>
                 </div>
             </nav>
         </div>
-    </div> 
+    </div>

@@ -1,76 +1,83 @@
+<?php $render('header'); ?>
+
+<body class="sb-nav-fixed">
     <div id="layoutSidenav">
+        <?php $render('sideBar'); ?>
         <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4 p-5">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Minhas Solicitações
-                            </div>
-                            <div class="card-body">
-                                <table id="minhasSolicitacoes" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Título</th>
-                                            <th>Tipo de Serviço</th>
-                                            <th>Prioridade</th>
-                                            <th>Ações</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+            <main>
+                <div class="container-fluid px-4 p-5">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Minhas Solicitações
+                        </div>
+                        <div class="card-body">
+                            <table id="minhasSolicitacoes" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Título</th>
+                                        <th>Tipo de Serviço</th>
+                                        <th>Prioridade</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
-                </main>
+                </div>
+            </main>
         </div>
     </div>
+
+    <!-- Modal de Avaliação -->
     <div class="modal fade" id="modalAvaliacao" tabindex="-1" aria-labelledby="modalAvaliacaoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content shadow-lg border-0 rounded-lg">
-            <form id="formAvaliacao">
-                <div class="modal-header">
-                <h5 class="modal-title" id="modalAvaliacaoLabel">Avaliar Chamado</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                <input type="hidden" name="titulo_chamado" id="tituloChamadoAvaliado" />
+                <form id="formAvaliacao">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalAvaliacaoLabel">Avaliar Chamado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="titulo_chamado" id="tituloChamadoAvaliado" />
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                    <div class="form-floating">
-                        <select class="form-control" name="nota" id="nota" required>
-                        <option value="5">⭐⭐⭐⭐⭐</option>
-                        <option value="4">⭐⭐⭐⭐</option>
-                        <option value="3">⭐⭐⭐</option>
-                        <option value="2">⭐⭐</option>
-                        <option value="1">⭐</option>
-                        </select>
-                        <label for="nota">Nota da Avaliação</label>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-floating">
-                        <input class="form-control" type="text" id="tituloChamadoExibido" disabled />
-                        <label for="tituloChamadoExibido">Título do Chamado</label>
-                    </div>
-                    </div>
-                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-control" name="nota" id="nota" required>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="1">⭐</option>
+                                    </select>
+                                    <label for="nota">Nota da Avaliação</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" type="text" id="tituloChamadoExibido" disabled />
+                                    <label for="tituloChamadoExibido">Título do Chamado</label>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-floating mb-3">
-                    <textarea class="form-control" name="comentario" id="comentario" style="height: 120px;" required></textarea>
-                    <label for="comentario">Comentário</label>
-                </div>
-                </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="comentario" id="comentario" style="height: 120px;" required></textarea>
+                            <label for="comentario">Comentário</label>
+                        </div>
+                    </div>
 
-                <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Salvar Avaliação</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Salvar Avaliação</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const solicitacoes = [
@@ -122,6 +129,7 @@
                 ]
             });
         });
+
         function editarSolicitacao(titulo) {
             alert('Editar: ' + titulo);
             // redirecionar ou abrir modal
@@ -133,6 +141,7 @@
                 // lógica de exclusão aqui
             }
         }
+
         function abrirModalAvaliacao(titulo) {
             document.getElementById('tituloChamadoAvaliado').value = titulo;
             document.getElementById('tituloChamadoExibido').value = titulo;
