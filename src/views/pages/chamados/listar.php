@@ -25,6 +25,52 @@
                 </main>
         </div>
     </div>
+    <div class="modal fade" id="modalAvaliacao" tabindex="-1" aria-labelledby="modalAvaliacaoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content shadow-lg border-0 rounded-lg">
+            <form id="formAvaliacao">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalAvaliacaoLabel">Avaliar Chamado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                <input type="hidden" name="titulo_chamado" id="tituloChamadoAvaliado" />
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <div class="form-floating">
+                        <select class="form-control" name="nota" id="nota" required>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                        </select>
+                        <label for="nota">Nota da Avaliação</label>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-floating">
+                        <input class="form-control" type="text" id="tituloChamadoExibido" disabled />
+                        <label for="tituloChamadoExibido">Título do Chamado</label>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" name="comentario" id="comentario" style="height: 120px;" required></textarea>
+                    <label for="comentario">Comentário</label>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Salvar Avaliação</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const solicitacoes = [
@@ -62,8 +108,11 @@
                                 <button class="btn btn-sm btn-primary me-1" onclick="editarSolicitacao('${row.titulo}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger" onclick="excluirSolicitacao('${row.titulo}')">
+                                <button class="btn btn-sm btn-danger me-1" onclick="excluirSolicitacao('${row.titulo}')">
                                     <i class="fas fa-trash-alt"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('${row.titulo}')">
+                                    <i class="fas fa-star"></i>
                                 </button>
                             `;
                         },
@@ -84,4 +133,25 @@
                 // lógica de exclusão aqui
             }
         }
+        function abrirModalAvaliacao(titulo) {
+            document.getElementById('tituloChamadoAvaliado').value = titulo;
+            document.getElementById('tituloChamadoExibido').value = titulo;
+            document.getElementById('comentario').value = '';
+            document.getElementById('nota').value = '5';
+            const modal = new bootstrap.Modal(document.getElementById('modalAvaliacao'));
+            modal.show();
+        }
+
+        document.getElementById('formAvaliacao').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const titulo = document.getElementById('tituloChamadoAvaliado').value;
+            const nota = document.getElementById('nota').value;
+            const comentario = document.getElementById('comentario').value;
+
+            // Aqui você pode substituir por chamada AJAX ou fetch para salvar
+            console.log('Avaliação salva:', { titulo, nota, comentario });
+
+            alert('Avaliação enviada com sucesso!');
+            bootstrap.Modal.getInstance(document.getElementById('modalAvaliacao')).hide();
+        });
     </script>

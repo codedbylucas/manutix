@@ -57,6 +57,16 @@
                                 </a>
                             </nav>
                         </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTecnico" aria-expanded="false" aria-controls="collapseTecnico">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                            Técnico
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseTecnico" aria-labelledby="headingTecnico" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="index.php?pagina=pages/tecnico/chamados_atribuidos">Chamados Atribuídos</a>
+                            </nav>
+                        </div>
                         <div class="sb-sidenav-menu-heading">Usuários</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -65,8 +75,8 @@
                         </a>
                         <div class="collapse" id="collapseUsuarios" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Cadastrar usuários com tipo</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Resetar senhas</a>
+                                <a class="nav-link" href="index.php?pagina=pages/usuarios/cadastro_usuario">Cadastrar usuários com tipo</a>
+                                <a class="nav-link" href="index.php?pagina=pages/usuarios/resetar_senha">Resetar senhas</a>
                             </nav>
                         </div>
                     </div>

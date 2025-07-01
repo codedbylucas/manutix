@@ -9,7 +9,7 @@
     <?php include'../src/views/partials/sideBar.php'; ?>
     <?php
         // Recupera a página da URL ou define uma padrão
-        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'pages/home';
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'pages/dashboard';
 
         // Sanitiza o caminho (evita injeções ou path traversal)
         $pagina = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $pagina);
