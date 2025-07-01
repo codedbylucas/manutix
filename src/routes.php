@@ -3,6 +3,18 @@ use core\Router;
 
 $router = new Router();
 
-$router->get('/', 'HomeController@index');
-$router->get('/sobre/{nome}', 'HomeController@sobreP');
-$router->get('/sobre', 'HomeController@sobre');
+//TELA LOGIN
+$router->get('/login', 'LoginController@index');
+$router->post('/login', 'LoginController@autenticar');
+$router->get('/logout', 'LoginController@logout');
+
+//DASHBOARD
+$router->get('/dashboard', 'DashboardController@index');
+
+//SOLICITACAO
+$router->get('/cadastro', 'SolicitacaoController@index');
+$router->get('/listar', 'SolicitacaoController@listar');
+
+
+//SETORES
+$router->get('/setores', 'GestaoSetoresController@index');

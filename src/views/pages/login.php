@@ -1,5 +1,5 @@
 <?php
-    include'partials/header.php';
+    $render('header');
 ?>
 <body class="bg-primary">
     <div id="layoutAuthentication">
@@ -11,13 +11,13 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                 <div class="card-body">
-                                    <form>
+                                    <form action="<?=$base?>/login" method="POST">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                            <input class="form-control" name="email" type="email" placeholder="name@example.com" />
                                             <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password" placeholder="Senha" />
+                                            <input class="form-control" name="senha" type="password" placeholder="Senha" />
                                             <label for="inputPassword">Senha</label>
                                         </div>
                                         <div class="form-check mb-3">
@@ -25,13 +25,14 @@
                                             <label class="form-check-label" for="inputRememberPassword">Lembrar senha</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="password.html">Esqueceu a senha ?</a>
-                                            <a class="btn btn-primary" href="index.html">Login</a>
+                                            <a class="small" href="">Esqueceu a senha ?</a>
+                                            <input class="btn btn-primary" type="submit" value="Login">
                                         </div>
+
+                                        <?php if(!empty($erro)){
+                                            echo "<div style='color: red;'>$erro</div>";
+                                        } ?>
                                     </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="register.html">Precisa de uma conta? Cadastre-se!</a></div>
                                 </div>
                             </div>
                         </div>
@@ -40,4 +41,3 @@
             </main>
         </div>
     </div>
-<?php include'partials/footer.php'; ?>
