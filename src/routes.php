@@ -15,6 +15,12 @@ $router->get('/dashboard', 'DashboardController@index');
 $router->get('/cadastro', 'SolicitacaoController@index');
 $router->get('/listar', 'SolicitacaoController@listar');
 
+//TECNICO
+$router->get('/chamados_atribuidos', 'TecnicoController@index');
+
+//USUARIOS
+$router->get('/cadastro_usuarios', 'UsuarioController@index');
+$router->get('/resetar_senha', 'UsuarioController@listar');
 
 //SETORES
 $router->get('/setores', 'GestaoSetoresController@index');
