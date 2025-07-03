@@ -7,7 +7,9 @@ use core\Database;
 use \PDO;
 
 class Usuario extends Model
+
 {
+
     public static function buscarPorEmail($email)
     {
         $pdo = Database::getInstance();
@@ -22,5 +24,21 @@ class Usuario extends Model
         }
 
         return false;
+    }
+
+    public static function salvar($dados)
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "INSERT INTO usuarios (nome, email, senha, tipo, setor_id) VALUES (:nome, :email, :senha, :tipo, :setor_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':nome', $dados['nome']);
+        $stmt->bindValue(':email', $dados['email']);
+        $stmt->bindValue(':senha', $dados['senha']);
+        $stmt->bindValue(':tipo', $dados['tipo']);
+        $stmt->bindValue(':setor_id', $dados['setor_id']);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

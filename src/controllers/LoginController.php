@@ -2,7 +2,7 @@
 
 namespace src\controllers;
 
-use src\models\Usuario;
+use src\models\Login;
 use \core\Controller;
 
 class LoginController extends Controller
@@ -20,7 +20,7 @@ class LoginController extends Controller
         $senha = filter_input(INPUT_POST, 'senha');
 
         if ($email && $senha) {
-            $usuario = Usuario::buscarPorEmail($email);
+            $usuario = Login::buscarPorEmail($email);
 
             if ($usuario && password_verify($senha, $usuario['senha'])) {
                 $_SESSION['usuario_id'] = $usuario['id'];

@@ -34,4 +34,6 @@ class ChamadosController extends Controller
     {
         $this->render('chamados/listar_chamados');
     }
+
+    
 }

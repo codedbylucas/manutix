@@ -13,7 +13,7 @@
                                     <h3 class="text-center font-weight-light my-4">Criar uma conta</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="cadastrar_usuario.php" method="POST">
+                                    <form action="<?=$base?>./admin/usuarios/novo" method="POST">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
@@ -63,9 +63,9 @@
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <select class="form-control" name="setor_id" required>
                                                         <option value="">Selecione o setor</option>
-                                                        <option value="1">Financeiro</option>
+                                                        <option value="1">RH</option>
                                                         <option value="2">TI</option>
-                                                        <option value="3">RH</option>
+                                                        <option value="3">FINANCEIRO</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -73,7 +73,7 @@
 
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid">
-                                                <button type="submit" class="btn btn-primary btn-block">Criar Conta</button>
+                                                <input type="submit" class="btn btn-primary btn-block" value="Criar Conta">
                                             </div>
                                         </div>
                                     </form>
