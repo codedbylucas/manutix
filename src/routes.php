@@ -3,24 +3,24 @@ use core\Router;
 
 $router = new Router();
 
-//TELA LOGIN
+// LOGIN
 $router->get('/login', 'LoginController@index');
 $router->post('/login', 'LoginController@autenticar');
 $router->get('/logout', 'LoginController@logout');
 
-//DASHBOARD
+// DASHBOARD
 $router->get('/dashboard', 'DashboardController@index');
 
-//SOLICITACAO
-$router->get('/cadastro', 'SolicitacaoController@index');
-$router->get('/listar', 'SolicitacaoController@listar');
+// CHAMADOS
+$router->get('/chamados/novo', 'ChamadosController@index');
+$router->post('/chamados/novo', 'ChamadosController@salvar');   
+$router->get('/chamados', 'ChamadosController@listar');      
 
-//TECNICO
-$router->get('/chamados_atribuidos', 'TecnicoController@index');
+// TECNICO
+$router->get('/tecnico/chamados', 'TecnicoController@index'); 
 
-//USUARIOS
-$router->get('/cadastro_usuarios', 'UsuarioController@index');
-$router->get('/resetar_senha', 'UsuarioController@listar');
-
-//SETORES
-$router->get('/setores', 'GestaoSetoresController@index');
+// GESTAO ADMIN
+$router->get('/admin/usuarios/novo', 'GestaoAdminController@index'); 
+$router->post('/admin/usuarios/novo', 'GestaoAdminController@salvar'); 
+$router->get('/admin/usuarios', 'GestaoAdminController@listar');     
+$router->get('/admin/setores', 'GestaoAdminController@setores'); 

@@ -1,4 +1,5 @@
 <?php $render('header'); ?>
+
 <body class="sb-nav-fixed">
     <div id="layoutSidenav">
         <?php $render('sideBar'); ?>
@@ -39,8 +40,7 @@
     </div>
 
     <script>
-        const chamadosTecnico = [
-            {
+        const chamadosTecnico = [{
                 status: 'Em andamento',
                 titulo: 'Trocar luminária',
                 tipo: 'Elétrica',
@@ -62,35 +62,40 @@
 
         let tabela;
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             tabela = $('#chamadosTecnico').DataTable({
                 data: chamadosTecnico,
-                columns: [
-                    {
+                columns: [{
                         data: 'status',
                         render: status => {
                             const badgeClass = {
                                 'Em andamento': 'bg-warning text-dark',
                                 'Aguardando': 'bg-secondary',
                                 'Concluído': 'bg-success'
-                            }[status] || 'bg-light';
+                            } [status] || 'bg-light';
                             return `<span class="badge ${badgeClass}">${status}</span>`;
                         }
                     },
-                    { data: 'titulo' },
-                    { data: 'tipo' },
-                    { data: 'prioridade' },
+                    {
+                        data: 'titulo'
+                    },
+                    {
+                        data: 'tipo'
+                    },
+                    {
+                        data: 'prioridade'
+                    },
                     {
                         data: null,
-                        render: function (row) {
+                        render: function(row) {
                             return `
-                                <button class="btn btn-sm btn-info me-1" onclick="atualizarStatus('${row.titulo}')">
-                                    <i class="fas fa-sync-alt"></i> Atualizar
-                                </button>
-                                <button class="btn btn-sm btn-success" onclick="concluirChamado('${row.titulo}')">
-                                    <i class="fas fa-check-circle"></i> Concluir
-                                </button>
-                            `;
+                            <button class="btn btn-sm btn-info me-1" onclick="atualizarStatus('${row.titulo}')">
+                                <i class="fas fa-sync-alt"></i> Atualizar
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="concluirChamado('${row.titulo}')">
+                                <i class="fas fa-check-circle"></i> Concluir
+                            </button>
+                        `;
                         },
                         orderable: false,
                         searchable: false
@@ -98,12 +103,12 @@
                 ]
             });
 
-            document.getElementById('filtroStatus').addEventListener('change', function () {
+            document.getElementById('filtroStatus').addEventListener('change', function() {
                 const statusSelecionado = this.value;
                 tabela.clear().rows.add(
-                    statusSelecionado
-                        ? chamadosTecnico.filter(ch => ch.status === statusSelecionado)
-                        : chamadosTecnico
+                    statusSelecionado ?
+                    chamadosTecnico.filter(ch => ch.status === statusSelecionado) :
+                    chamadosTecnico
                 ).draw();
             });
         });
