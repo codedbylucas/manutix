@@ -6,6 +6,7 @@ use \ClanCats\Hydrahon\Builder;
 use \ClanCats\Hydrahon\Query\Sql\FetchableInterface;
 
 class Model {
+    protected static string $table;
 
     protected static $_h;
     
@@ -31,6 +32,10 @@ class Model {
     }
 
     public static function getTableName() {
+        if (isset(static::$table)) {
+            return static::$table;
+        }
+
         $className = explode('\\', get_called_class());
         $className = end($className);
         return strtolower($className).'s';

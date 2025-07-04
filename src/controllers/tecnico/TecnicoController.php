@@ -1,6 +1,6 @@
 <?php
 
-namespace src\controllers;
+namespace src\controllers\tecnico;
 
 use \core\Controller;
 

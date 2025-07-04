@@ -1,6 +1,6 @@
 <?php
 
-namespace src\controllers;
+namespace src\controllers\chamados;
 
 use src\models\Usuario;
 use \core\Controller;
