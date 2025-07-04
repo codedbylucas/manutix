@@ -80,4 +80,23 @@ class GestaoSetoresController extends Controller
         }
     }
 
+    public function excluir()
+    {
+        $id = filter_input(INPUT_POST, 'id');
+
+        if ($id) {
+            $setor = Setor::select()->where('id', $id)->one();
+
+            if ($setor) {
+                Setor::delete()->where('id', $id)->execute();
+                echo json_encode(['success' => true, 'mensagem' => 'Setor excluído com sucesso!']);
+                
+            } else {
+                echo json_encode(['success' => false, 'mensagem' => 'Setor não encontrado.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'mensagem' => 'ID inválido.']);
+        }
+    }
+
 }

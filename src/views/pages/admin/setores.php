@@ -89,7 +89,7 @@
                                 <p>Tem certeza que deseja excluir o setor <strong id="excluirNomeSetor"></strong>?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-danger">Excluir</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmarExclusaoSetor()">Excluir</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </form>

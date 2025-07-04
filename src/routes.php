@@ -29,3 +29,4 @@ $router->get('/admin/setores', 'admin\GestaoAdminController@setores');
 $router->post('/admin/setores/novo', 'admin\GestaoSetoresController@salvar');
 $router->get('/admin/setores/listar', 'admin\GestaoSetoresController@listar'); 
 $router->post('/admin/setores/editar', 'admin\GestaoSetoresController@editar');
+$router->post('/admin/setores/excluir', 'admin\GestaoSetoresController@excluir');
