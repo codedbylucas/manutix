@@ -4,7 +4,13 @@
         <?php $render('sideBar'); ?>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container p-5">
+                <div class="container p-3">
+                    <div>
+                                <h1 class="mt-4">Usuários</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item active">Listar Usuários</li>
+                                </ol>
+                            </div>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-users me-1"></i>
