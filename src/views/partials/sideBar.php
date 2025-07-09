@@ -60,6 +60,12 @@
                             </nav>
                         </div>
 
+                        <div class="sb-sidenav-menu-heading">Avaliação</div>
+                        <a class="nav-link" href="<?= $base ?>/avaliacoes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
+                            Avaliações
+                        </a>
+
                         <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'admin'): ?>
                             <div class="sb-sidenav-menu-heading">Usuários</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">

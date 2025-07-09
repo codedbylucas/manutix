@@ -32,7 +32,7 @@
             <div class="modal fade" id="modalCadastrarSetor" tabindex="-1" aria-labelledby="modalCadastrarSetorLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="<?=$base?>./admin/setores/novo" method="POST">
+                        <form action="<?=$base?>/admin/setores/novo" method="POST">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalCadastrarSetorLabel">Cadastrar Novo Setor</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>

@@ -12,9 +12,12 @@ $router->get('/logout', 'LoginController@logout');
 $router->get('/dashboard', 'DashboardController@index');
 
 // CHAMADOS
-$router->get('/chamados/novo', 'chamados\ChamadosController@index');
+// $router->get('/chamados/novo', 'chamados\ChamadosController@index');
 $router->post('/chamados/novo', 'chamados\ChamadosController@salvar');   
-$router->get('/chamados', 'chamados\ChamadosController@listar');      
+$router->get('/chamados', 'chamados\ChamadosController@listar'); 
+$router->get('/chamados/novo', 'chamados\ChamadosController@novo');
+$router->post('/chamados/excluir', 'chamados\ChamadosController@excluir');
+$router->post('/chamados/editar', 'chamados\ChamadosController@editar');
 
 // TECNICO
 $router->get('/tecnico/chamados', 'tecnico\TecnicoController@index'); 
@@ -30,3 +33,8 @@ $router->post('/admin/setores/novo', 'admin\GestaoSetoresController@salvar');
 $router->get('/admin/setores/listar', 'admin\GestaoSetoresController@listar'); 
 $router->post('/admin/setores/editar', 'admin\GestaoSetoresController@editar');
 $router->post('/admin/setores/excluir', 'admin\GestaoSetoresController@excluir');
+
+// AVALIAÇÃO
+$router->get('/avaliacoes', 'avaliacao\AvaliacoesController@index');
+$router->post('/avaliacoes/salvar', 'avaliacao\AvaliacoesController@salvar');
+$router->get('/avaliacoes/listar', 'avaliacao\AvaliacoesController@listar');
