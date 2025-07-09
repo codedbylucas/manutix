@@ -22,6 +22,62 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <?php foreach ($chamados as $chamado): ?>
+                                        <tr>
+                                            <td>
+                                               <?php
+                                                    switch ($chamado['status']) {
+                                                        case 'novo':
+                                                            echo '<span class="badge bg-primary text-white">Novo</span>';
+                                                            break;
+                                                        case 'andamento':
+                                                            echo '<span class="badge bg-warning text-dark">Em Andamento</span>';
+                                                            break;
+                                                        case 'aguardando_material':
+                                                            echo '<span class="badge bg-info text-dark">Aguardando Material</span>';
+                                                            break;
+                                                        case 'concluido':
+                                                            echo '<span class="badge bg-success text-white">Concluído</span>';
+                                                            break;
+                                                        case 'cancelado':
+                                                            echo '<span class="badge bg-danger text-white">Cancelado</span>';
+                                                            break;
+                                                        default:
+                                                            $nomeStatus = str_replace('_', ' ', $chamado['status']);
+                                                            echo '<span class="badge bg-secondary text-white">' . ucwords($nomeStatus) . '</span>';
+                                                    }
+                                                ?>
+                                            </td>
+                                            <td><?= htmlspecialchars($chamado['titulo']) ?></td>
+                                            <td><?= htmlspecialchars($chamado['tipo_servico']) ?></td>
+                                            <td><?= strtoupper(htmlspecialchars($chamado['prioridade']) )?></td>
+                                           <td>
+                                                <div class="d-flex gap-1">
+                                                    <button class="btn btn-sm btn-primary" 
+                                                        onclick="editarSolicitacao({
+                                                            id: '<?= $chamado['id'] ?>',
+                                                            titulo: '<?= $chamado['titulo'] ?>',
+                                                            descricao: '<?= $chamado['descricao'] ?>',
+                                                            prioridade: '<?= $chamado['prioridade'] ?>',
+                                                            status: '<?= $chamado['status'] ?>',
+                                                            setor_id: '<?= $chamado['setor_id'] ?>',
+                                                            tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>'
+                                                        })">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger" 
+                                                        onclick="excluirSolicitacao('<?= htmlspecialchars($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
+                                                        <i class="fas fa-star"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -40,6 +96,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
+                        <input type="hidden" name="solicitacao_id" id="solicitacaoIdAvaliado" />
+
                         <input type="hidden" name="titulo_chamado" id="tituloChamadoAvaliado" />
 
                         <div class="row mb-3">
@@ -77,90 +135,111 @@
             </div>
         </div>
     </div>
+    <!-- Modal de Edição -->
+    <div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content shadow-lg border-0 rounded-lg">
+                <form id="formEdicao" action="<?=$base?>/chamados/editar" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEdicaoLabel">Editar Chamado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="editChamadoId" />
+                        <input type="hidden" name="usuario_id" id="editUsuarioId" />
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="titulo" id="editTitulo" type="text" required />
+                            <label for="editTitulo">Título</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="descricao" id="editDescricao" style="height: 120px;" required></textarea>
+                            <label for="editDescricao">Descrição</label>
+                        </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-control" name="prioridade" id="editPrioridade" required>
+                                        <option value="baixa">Baixa</option>
+                                        <option value="media">Média</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
+                                    <label>Prioridade</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-control" name="status" id="editStatus" required>
+                                        <option value="aguardando">Aguardando</option>
+                                        <option value="andamento">Em Andamento</option>
+                                        <option value="aguardando_material">Aguardando Material</option>
+                                        <option value="concluido">Concluído</option>
+                                    </select>
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-control" name="setor_id" id="editSetor" required>
+                                        <?php foreach ($setores as $setor): ?>
+                                            <option value="<?= $setor['id'] ?>"><?= htmlspecialchars($setor['nome']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label>Setor</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-control" name="tipo_servico_id" id="editTipoServico" required>
+                                        <option value="1">Manutenção</option>
+                                        <option value="2">Suporte Técnico</option>
+                                        <option value="3">Infraestrutura</option>
+                                    </select>
+                                    <label>Tipo de Serviço</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="file" name="anexo" />
+                            <label for="anexo">Anexo (opcional)</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalExclusao" tabindex="-1" aria-labelledby="modalExclusaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shadow-lg border-0 rounded-lg">
+                <form id="formExclusao" action="<?=$base?>/chamados/excluir" method="POST">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="modalExclusaoLabel">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="excluirChamadoId">
+                        <p>Tem certeza que deseja excluir o chamado <strong id="excluirChamadoTitulo"></strong>?</p>
+                        <p class="text-danger mb-0">Essa ação não poderá ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const solicitacoes = [
-                {
-                    status: '<span class="badge bg-warning text-dark">Em andamento</span>',
-                    titulo: 'Soeleta e senarica',
-                    tipo: 'Elétrica',
-                    prioridade: ''
-                },
-                {
-                    status: '<span class="badge bg-success text-white">Concluída</span>',
-                    titulo: 'Mínimo solicitação',
-                    tipo: 'Manutenção',
-                    prioridade: '★★★'
-                },
-                {
-                    status: '<span class="badge bg-secondary text-white">Aguardando análise</span>',
-                    titulo: 'Aguardando análise',
-                    tipo: 'Loja',
-                    prioridade: ''
-                }
-            ];
-
-            $('#minhasSolicitacoes').DataTable({
-                data: solicitacoes,
-                columns: [
-                    { data: 'status' },
-                    { data: 'titulo' },
-                    { data: 'tipo' },
-                    { data: 'prioridade' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `
-                                <button class="btn btn-sm btn-primary me-1" onclick="editarSolicitacao('${row.titulo}')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger me-1" onclick="excluirSolicitacao('${row.titulo}')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                                <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('${row.titulo}')">
-                                    <i class="fas fa-star"></i>
-                                </button>
-                            `;
-                        },
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-
-        function editarSolicitacao(titulo) {
-            alert('Editar: ' + titulo);
-            // redirecionar ou abrir modal
-        }
-
-        function excluirSolicitacao(titulo) {
-            if (confirm(`Deseja excluir a solicitação "${titulo}"?`)) {
-                alert('Excluída: ' + titulo);
-                // lógica de exclusão aqui
-            }
-        }
-
-        function abrirModalAvaliacao(titulo) {
-            document.getElementById('tituloChamadoAvaliado').value = titulo;
-            document.getElementById('tituloChamadoExibido').value = titulo;
-            document.getElementById('comentario').value = '';
-            document.getElementById('nota').value = '5';
-            const modal = new bootstrap.Modal(document.getElementById('modalAvaliacao'));
-            modal.show();
-        }
-
-        document.getElementById('formAvaliacao').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const titulo = document.getElementById('tituloChamadoAvaliado').value;
-            const nota = document.getElementById('nota').value;
-            const comentario = document.getElementById('comentario').value;
-
-            // Aqui você pode substituir por chamada AJAX ou fetch para salvar
-            console.log('Avaliação salva:', { titulo, nota, comentario });
-
-            alert('Avaliação enviada com sucesso!');
-            bootstrap.Modal.getInstance(document.getElementById('modalAvaliacao')).hide();
-        });
+        const baseUrl = "<?=$base?>";
     </script>
+    <script src="<?=$base?>/assets/js/listar_chamados.js"></script>
