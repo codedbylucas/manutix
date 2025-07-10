@@ -27,6 +27,8 @@ $router->get('/tecnico/chamados', 'tecnico\TecnicoController@index');
 $router->get('/admin/usuarios/novo', 'admin\GestaoAdminController@index');
 $router->post('/admin/usuarios/novo', 'admin\GestaoAdminController@salvar');
 $router->get('/admin/usuarios', 'admin\GestaoAdminController@listar');
+$router->get('/admin/usuarios/excluir/{id}', 'admin\GestaoAdminController@excluir');
+$router->get('/admin/usuarios/editar/{id}', 'admin\GestaoAdminController@editar');
 
 // SETORES
 $router->get('/admin/setores', 'admin\GestaoAdminController@setores');

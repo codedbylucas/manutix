@@ -29,14 +29,10 @@ class GestaoAdminController extends Controller
         $this->render('admin/cadastro_usuarios');
     }
 
-    public function setores()
-    {
-        $this->render('admin/setores');
-    }
-
     public function listar()
     {
-        $this->render('admin/listar_usuarios');
+        $usuarios = Usuario::listarUsuarios();
+        $this->render('admin/listar_usuarios', ['usuarios' => $usuarios]);
     }
 
     public function salvar()
@@ -78,5 +74,9 @@ class GestaoAdminController extends Controller
                 exit;
             }
         }
+    }
+
+    public function excluir() {
+        echo 'ola';
     }
 }

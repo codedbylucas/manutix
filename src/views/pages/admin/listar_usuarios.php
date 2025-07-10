@@ -1,4 +1,5 @@
 <?php $render('header') ?>
+
 <body class="sb-nav-fixed">
     <div id="layoutSidenav">
         <?php $render('sideBar'); ?>
@@ -6,11 +7,11 @@
             <main>
                 <div class="container p-3">
                     <div>
-                                <h1 class="mt-4">Usuários</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">Listar Usuários</li>
-                                </ol>
-                            </div>
+                        <h1 class="mt-4">Usuários</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Listar Usuários</li>
+                        </ol>
+                    </div>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-users me-1"></i>
@@ -27,7 +28,29 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <?php if (!empty($usuarios)): ?>
+                                        <?php foreach ($usuarios as $usuario): ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($usuario['nome']) ?></td>
+                                                <td><?= htmlspecialchars($usuario['email']) ?></td>
+                                                <td><?= htmlspecialchars($usuario['tipo']) ?></td>
+                                                <td><?= htmlspecialchars($usuario['setor'] ?? 'Sem setor') ?></td>
+                                                <td>
+                                                    <!-- Coloque aqui botões de editar, excluir, etc -->
+                                                    <a href="<?= $base ?>/admin/usuarios/editar<?= $usuario['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                                                    <a href="<?= $base ?>/admin/usuarios/excluir/<?= $usuario['id'] ?>" class="btn btn-sm btn-danger">Excluir</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="5" class="text-center">Nenhum usuário encontrado.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -58,70 +81,5 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const usuarios = [
-            {
-                nome: 'Maria Silva',
-                email: 'maria.silva@example.com',
-                tipo: 'admin',
-                setor: 'TI'
-            },
-            {
-                nome: 'João Souza',
-                email: 'joao.souza@example.com',
-                tipo: 'tecnico',
-                setor: 'Manutenção'
-            },
-            {
-                nome: 'Ana Costa',
-                email: 'ana.costa@example.com',
-                tipo: 'funcionario',
-                setor: 'RH'
-            }
-        ];
-
-        $('#tabelaUsuarios').DataTable({
-                data: usuarios,
-                columns: [
-                    { data: 'nome' },
-                    { data: 'email' },
-                    { data: 'tipo' },
-                    { data: 'setor' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `
-                                <button class="btn btn-sm btn-warning" onclick="abrirModalSenha('${row.email}')">
-                                    <i class="fas fa-key"></i> Alterar Senha
-                                </button>
-                            `;
-                        },
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-
-        function abrirModalSenha(email) {
-            document.getElementById('emailUsuario').value = email;
-            document.getElementById('novaSenha').value = '';
-            const modal = new bootstrap.Modal(document.getElementById('modalSenha'));
-            modal.show();
-        }
-
-        document.getElementById('formSenha').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = document.getElementById('emailUsuario').value;
-            const novaSenha = document.getElementById('novaSenha').value;
-
-            console.log('Senha atualizada para:', { email, novaSenha });
-
-            alert(`Senha do usuário ${email} alterada com sucesso!`);
-            bootstrap.Modal.getInstance(document.getElementById('modalSenha')).hide();
-        });
-
-    </script>
 </body>
 <?php $render('footer'); ?>
