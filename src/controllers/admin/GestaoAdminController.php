@@ -1,6 +1,6 @@
 <?php
 
-namespace src\controllers;
+namespace src\controllers\admin;
 
 use \core\Controller;
 use src\models\Usuario;

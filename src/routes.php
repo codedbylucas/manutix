@@ -1,4 +1,5 @@
 <?php
+
 use core\Router;
 
 $router = new Router();
@@ -13,24 +14,24 @@ $router->get('/dashboard', 'DashboardController@index');
 
 // CHAMADOS
 // $router->get('/chamados/novo', 'chamados\ChamadosController@index');
-$router->post('/chamados/novo', 'chamados\ChamadosController@salvar');   
-$router->get('/chamados', 'chamados\ChamadosController@listar'); 
+$router->post('/chamados/novo', 'chamados\ChamadosController@salvar');
+$router->get('/chamados', 'chamados\ChamadosController@listar');
 $router->get('/chamados/novo', 'chamados\ChamadosController@novo');
 $router->post('/chamados/excluir', 'chamados\ChamadosController@excluir');
 $router->post('/chamados/editar', 'chamados\ChamadosController@editar');
 
 // TECNICO
-$router->get('/tecnico/chamados', 'tecnico\TecnicoController@index'); 
+$router->get('/tecnico/chamados', 'tecnico\TecnicoController@index');
 
 // GESTAO ADMIN
-$router->get('/admin/usuarios/novo', 'admin\GestaoAdminController@index'); 
-$router->post('/admin/usuarios/novo', 'admin\GestaoAdminController@salvar'); 
-$router->get('/admin/usuarios', 'admin\GestaoAdminController@listar'); 
+$router->get('/admin/usuarios/novo', 'admin\GestaoAdminController@index');
+$router->post('/admin/usuarios/novo', 'admin\GestaoAdminController@salvar');
+$router->get('/admin/usuarios', 'admin\GestaoAdminController@listar');
 
 // SETORES
 $router->get('/admin/setores', 'admin\GestaoAdminController@setores');
 $router->post('/admin/setores/novo', 'admin\GestaoSetoresController@salvar');
-$router->get('/admin/setores/listar', 'admin\GestaoSetoresController@listar'); 
+$router->get('/admin/setores/listar', 'admin\GestaoSetoresController@listar');
 $router->post('/admin/setores/editar', 'admin\GestaoSetoresController@editar');
 $router->post('/admin/setores/excluir', 'admin\GestaoSetoresController@excluir');
 
