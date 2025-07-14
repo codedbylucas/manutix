@@ -21,7 +21,7 @@ $router->post('/chamados/excluir', 'chamados\ChamadosController@excluir');
 $router->post('/chamados/editar', 'chamados\ChamadosController@editar');
 
 // TECNICO
-$router->get('/tecnico/chamados', 'tecnico\TecnicoController@index');
+$router->get('/tecnico/chamados', 'tecnico\TecnicoController@listar');
 
 // GESTAO ADMIN
 $router->get('/admin/usuarios/novo', 'admin\GestaoAdminController@index');
