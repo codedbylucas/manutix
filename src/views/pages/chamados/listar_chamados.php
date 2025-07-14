@@ -172,10 +172,12 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-control" name="status" id="editStatus" required>
+                                        <option value="novo">Novo</option>
                                         <option value="aguardando">Aguardando</option>
                                         <option value="andamento">Em Andamento</option>
                                         <option value="aguardando_material">Aguardando Material</option>
                                         <option value="concluido">Concluído</option>
+                                        <option value="cancelado">Cancelado</option>
                                     </select>
                                     <label>Status</label>
                                 </div>

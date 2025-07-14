@@ -23,8 +23,16 @@ class TecnicoController extends Controller
             exit;
         }
     }
-    public function index()
+
+    public function listar()
     {
-        $this->render('tecnico/chamados_atribuidos');
+        $usuarioId = $_SESSION['usuario_id'];
+        $chamados = \src\models\Chamado::listarPorUsuario($usuarioId);
+        $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
+
+        $this->render('tecnico/chamados_atribuidos', [
+            'chamados' => $chamados,
+            'setores' => $setores
+        ]);
     }
 }
