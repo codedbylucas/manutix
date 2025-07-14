@@ -39,7 +39,7 @@ class ChamadosController extends Controller
             $status = $_POST['status'] ?? 'novo';
             $setor_id = $_POST['setor_id'] ?? '';
             $tipo_servico_id = $_POST['tipo_servico_id'] ?? '';
-            $usuario_id = $_POST['usuario_id'] ?? '';
+            $usuario_id = $_SESSION['usuario_id'] ?? '';
             $tecnico_id = !empty($_POST['tecnico_id']) ? $_POST['tecnico_id'] : null;
 
             $anexo = null;
