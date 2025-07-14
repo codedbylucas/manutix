@@ -70,9 +70,11 @@
                                                         onclick="excluirSolicitacao('<?= htmlspecialchars($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
-                                                        <i class="fas fa-star"></i>
-                                                    </button>
+                                                    <?php if ($chamado['status'] === 'concluido'): ?>
+                                                        <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
+                                                            <i class="fas fa-star"></i>
+                                                        </button>
+                                                    <?php endif; ?>
                                                 </div>
                                             </td>
                                         </tr>
