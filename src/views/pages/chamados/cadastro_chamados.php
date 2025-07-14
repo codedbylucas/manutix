@@ -75,20 +75,6 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <select class="form-control" name="usuario_id" required>
-                                                <option value="">Selecione o Usuário</option>
-                                                <?php foreach ($usuarios as $usuario): ?>
-                                                    <option value="<?= $usuario['id'] ?>"><?= htmlspecialchars($usuario['nome']) ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <label>Usuário</label>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="form-floating mb-3">
                                     <input class="form-control" type="file" name="anexo" />
                                     <label for="anexo">Anexo (opcional)</label>
