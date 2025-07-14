@@ -31,25 +31,94 @@ class Chamado extends Model {
         return $stmt->execute();
     }
 
-    public static function listarPorUsuario($usuarioId)
+    public static function listarPorUsuario(int $usuarioId): array
     {
         $pdo = Database::getInstance();
+
         $sql = "
-            SELECT 
+            SELECT
                 s.id,
                 s.titulo,
                 s.status,
                 s.prioridade,
                 s.tipo_servico_id,
                 s.setor_id,
+                s.tecnico_id,                 -- ainda trazemos o ID
                 s.descricao,
-                ts.nome AS tipo_servico
+                ts.nome AS tipo_servico,
+                u.nome AS nome_tecnico        -- aqui já vem o nome
             FROM solicitacoes s
             LEFT JOIN tipos_servico ts ON ts.id = s.tipo_servico_id
+            LEFT JOIN usuarios      u  ON u.id  = s.tecnico_id   -- junta com usuários
+            WHERE s.usuario_id = :usuarioId                       -- se o filtro fizer sentido
             ORDER BY s.id DESC
         ";
 
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':usuarioId', $usuarioId, PDO::PARAM_INT);
+        $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public static function listarPorTecnico(int $tecnicoId): array
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            SELECT
+                s.id,
+                s.titulo,
+                s.status,
+                s.prioridade,
+                s.tipo_servico_id,
+                s.setor_id,
+                s.tecnico_id,
+                s.descricao,
+                ts.nome AS tipo_servico,
+                u.nome AS nome_tecnico
+            FROM solicitacoes s
+            LEFT JOIN tipos_servico ts ON ts.id = s.tipo_servico_id
+            LEFT JOIN usuarios      u  ON u.id  = s.tecnico_id
+            WHERE s.tecnico_id = :tecnicoId          -- agora o filtro é aqui
+            ORDER BY s.id DESC
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':tecnicoId', $tecnicoId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function listarTodos(): array
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            SELECT
+                s.id,
+                s.titulo,
+                s.status,
+                s.prioridade,
+                s.tipo_servico_id,
+                s.setor_id,
+                s.tecnico_id,
+                s.descricao,
+                ts.nome AS tipo_servico,
+                u.nome  AS nome_tecnico,      -- nome do técnico (se houver)
+                su.nome AS nome_solicitante   -- nome de quem abriu o chamado
+            FROM solicitacoes s
+            LEFT JOIN tipos_servico ts ON ts.id = s.tipo_servico_id
+            LEFT JOIN usuarios      u  ON u.id  = s.tecnico_id       -- técnico
+            LEFT JOIN usuarios      su ON su.id = s.usuario_id       -- solicitante
+            ORDER BY s.id DESC
+        ";
+
+        $stmt = $pdo->query($sql);          // não precisa de prepare/bind
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

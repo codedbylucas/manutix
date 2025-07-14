@@ -57,6 +57,7 @@
                         <div class="collapse" id="collapseTecnico" aria-labelledby="headingTecnico" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?= $base ?>/tecnico/chamados">Chamados Atribuídos</a>
+                                <a class="nav-link" href="<?= $base ?>/tecnico/todosChamados">Todos Chamados</a>
                             </nav>
                         </div>
 

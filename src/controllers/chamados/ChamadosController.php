@@ -177,7 +177,7 @@ class ChamadosController extends Controller
         }
 
         $usuarioId = $_SESSION['usuario_id'];
-        $chamados = \src\models\Chamado::listarPorUsuario($usuarioId);
+        $chamados = \src\models\Chamado::listarTodos($usuarioId);
         $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
 
         $this->render('chamados/listar_chamados', [
