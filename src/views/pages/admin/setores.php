@@ -1,4 +1,4 @@
-        <?php $render('header'); ?>
+    <?php $render('header'); ?>
         <body class="sb-nav-fixed">
             <div id="layoutSidenav">
                 <?php $render('sideBar'); ?>

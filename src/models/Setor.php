@@ -9,6 +9,17 @@ use \PDO;
 class Setor extends Model
 {
     protected static string $table = 'setores';
+
+    public static function listarSetores()
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "SELECT * FROM setores ORDER BY nome ASC";
+        $stmt = $pdo->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function buscarSetor($nome)
     {
         $pdo = Database::getInstance();

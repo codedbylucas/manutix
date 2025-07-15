@@ -2,7 +2,6 @@
             fetch(baseUrl + '/admin/setores/listar')
                 .then(response => response.json())
                 .then(setores => {
-                    console.log(setores); 
                     $('#tabelaSetores').DataTable({
                         data: setores,
                         columns: [
@@ -64,12 +63,5 @@
             document.getElementById('editarIdSetor').value = id;
             document.getElementById('editarNomeSetor').value = nome;
             const modal = new bootstrap.Modal(document.getElementById('modalEditarSetor'));
-            modal.show();
-        }
-
-        function excluirSetor(nome, id) {
-            document.getElementById('excluirIdSetor').value = id;
-            document.getElementById('excluirNomeSetor').innerText = nome;
-            const modal = new bootstrap.Modal(document.getElementById('modalExcluirSetor'));
             modal.show();
         }
