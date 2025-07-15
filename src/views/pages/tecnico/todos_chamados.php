@@ -9,7 +9,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            <h3>Todas as Solicitações</h1>
+                            <h4>Todas as Solicitações</h4>
                         </div>
                         <div class="card-body">
                             <table id="minhasSolicitacoes" class="table">
