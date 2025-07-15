@@ -24,6 +24,10 @@ class GestaoSetoresController extends Controller
         }
     }
 
+    public function setores() {
+        $this->render('admin/setores');
+    }
+
     public function salvar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -70,7 +74,6 @@ class GestaoSetoresController extends Controller
                     ->where('id', $id)
                     ->execute();
 
-                // Redireciona de volta com sucesso
                 $this->redirect('/admin/setores');
             } else {
                 echo "Setor não encontrado.";
