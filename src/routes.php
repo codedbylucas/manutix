@@ -28,6 +28,7 @@ $router->post('/chamados/editar', 'chamados\ChamadosController@editar');
 $router->get('/tecnico/chamados', 'tecnico\TecnicoController@listar');
 $router->get('/tecnico/todosChamados', 'tecnico\TodosChamadosController@listar');
 $router->post('/chamados/assumir', 'tecnico\TodosChamadosController@assumir');
+$router->post('/tecnico/editar', 'tecnico\TecnicoController@editar');
 
 // GESTAO ADMIN
 $router->get('/admin/usuarios/novo', 'admin\GestaoAdminController@index');
