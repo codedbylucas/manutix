@@ -85,7 +85,7 @@
     <div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content shadow-lg border-0 rounded-lg">
-                <form id="formEdicao" action="<?=$base?>/chamados/editar" method="POST" enctype="multipart/form-data">
+                <form id="formEdicao" action="<?=$base?>/tecnico/editar" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEdicaoLabel">Editar Chamado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
