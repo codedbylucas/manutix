@@ -12,6 +12,10 @@ $router->get('/logout', 'LoginController@logout');
 // DASHBOARD
 $router->get('/dashboard', 'DashboardController@index');
 
+// GRAFICO
+$router->get('/grafico/status', 'DashboardController@dadosGraficoStatus');
+$router->get('/grafico/tecnico', 'DashboardController@dadosGraficoTecnico');
+
 // CHAMADOS
 // $router->get('/chamados/novo', 'chamados\ChamadosController@index');
 $router->post('/chamados/novo', 'chamados\ChamadosController@salvar');
@@ -43,3 +47,5 @@ $router->post('/admin/setores/excluir', 'admin\GestaoSetoresController@excluir')
 $router->get('/avaliacoes', 'avaliacao\AvaliacoesController@index');
 $router->post('/avaliacoes/salvar', 'avaliacao\AvaliacoesController@salvar');
 $router->get('/avaliacoes/listar', 'avaliacao\AvaliacoesController@listar');
+
+

@@ -120,5 +120,47 @@ class Chamado extends Model {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function totaisStatusPorUsuario(int $usuarioId): array
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            SELECT status, COUNT(*) AS total
+            FROM solicitacoes
+            WHERE usuario_id = :id
+            GROUP BY status
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $usuarioId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+     public static function totaisPorTecnico(?string $statusOpcional = null): array
+    {
+        $pdo   = Database::getInstance();
+        $table = self::$table;                // evita hard‑code
+
+        $sql = "
+            SELECT u.nome AS tecnico, COUNT(*) AS total
+            FROM {$table} s
+            JOIN usuarios u ON u.id = s.tecnico_id
+            " . ($statusOpcional ? "WHERE s.status = :status" : "") . "
+            GROUP BY u.nome
+            ORDER BY total DESC
+        ";
+
+        $stmt = $pdo->prepare($sql);
+
+        if ($statusOpcional) {
+            $stmt->bindValue(':status', $statusOpcional, PDO::PARAM_STR);
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
