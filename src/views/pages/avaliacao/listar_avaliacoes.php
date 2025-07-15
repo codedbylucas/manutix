@@ -25,7 +25,7 @@
                                     <tr>
                                         <td><?= $av['id'] ?></td>
                                         <td><?= htmlspecialchars($av['titulo']) ?></td>
-                                        <td><?= $av['nota'] ?></td>
+                                        <td><?= str_repeat('⭐', (int)$av['nota']) ?></td>
                                         <td><?= htmlspecialchars($av['comentario']) ?></td>
                                     </tr>
                                 <?php endforeach ?>
@@ -39,20 +39,3 @@
     </div>
 </body>
 
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const res  = await fetch('/avaliacoes/listar');
-  const dados = await res.json();
-  const tbody = document.querySelector('#tabelaAvaliacoes tbody');
-
-  dados.forEach(av => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${av.id}</td>
-      <td>${av.titulo}</td>
-      <td>${av.nota}</td>
-      <td>${av.comentario}</td>`;
-    tbody.appendChild(tr);
-  });
-});
-</script>
