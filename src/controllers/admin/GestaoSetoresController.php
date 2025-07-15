@@ -48,12 +48,18 @@ class GestaoSetoresController extends Controller
         }
     }
 
-    public function listar() {
-        $pdo = \core\Database::getInstance();
-        $stmt = $pdo->prepare("SELECT id, nome FROM setores");
-        $stmt->execute();
-        $setores = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        echo json_encode($setores);
+    public function index()
+    {
+        $setores = \src\models\Setor::listarSetores();
+        $this->render('admin/setores', ['setores' => $setores]);
+    }
+
+    public function listar()
+    {
+        $setores = Setor::listarSetores();          // array associativo
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($setores, JSON_UNESCAPED_UNICODE);
+        exit;                                       // garante que nada mais será enviado
     }
 
      public function editar()

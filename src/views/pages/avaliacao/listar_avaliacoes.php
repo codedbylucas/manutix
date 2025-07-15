@@ -20,7 +20,16 @@
                                         <th>Comentário</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <?php foreach ($avaliacoes as $av): ?>
+                                    <tr>
+                                        <td><?= $av['id'] ?></td>
+                                        <td><?= htmlspecialchars($av['titulo']) ?></td>
+                                        <td><?= $av['nota'] ?></td>
+                                        <td><?= htmlspecialchars($av['comentario']) ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -31,21 +40,19 @@
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        $('#tabelaAvaliacoes').DataTable({
-            ajax: '/manutix/avaliacoes/listar',
-            columns: [
-                { data: 'id' },
-                { data: 'titulo' },
-                { 
-                    data: 'nota',
-                    render: nota => '⭐'.repeat(nota)
-                },
-                { data: 'comentario' }
-            ],
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/pt-BR.json'
-            }
-        });
-    });
+document.addEventListener('DOMContentLoaded', async () => {
+  const res  = await fetch('/avaliacoes/listar');
+  const dados = await res.json();
+  const tbody = document.querySelector('#tabelaAvaliacoes tbody');
+
+  dados.forEach(av => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${av.id}</td>
+      <td>${av.titulo}</td>
+      <td>${av.nota}</td>
+      <td>${av.comentario}</td>`;
+    tbody.appendChild(tr);
+  });
+});
 </script>

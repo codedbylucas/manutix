@@ -10,7 +10,17 @@ class AvaliacoesController extends Controller
 {
     public function index()
     {
-        $this->render('avaliacao/listar_avaliacoes');
+        $pdo = Database::getInstance();
+        $stmt = $pdo->query("
+            SELECT a.id, a.solicitacao_id, a.nota, a.comentario, s.titulo
+            FROM avaliacoes a
+            JOIN solicitacoes s ON s.id = a.solicitacao_id
+            ORDER BY a.id DESC
+        ");
+        $avaliacoes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // passa $avaliacoes para o template
+        $this->render('avaliacao/listar_avaliacoes', ['avaliacoes' => $avaliacoes]);
     }
 
     public function salvar()

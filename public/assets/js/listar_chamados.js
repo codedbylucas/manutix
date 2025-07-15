@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Inicializar DataTable
     $('#minhasSolicitacoes').DataTable();
 
-    // Submissão do formulário de avaliação
     const formAvaliacao = document.getElementById('formAvaliacao');
 
     if (formAvaliacao) {
