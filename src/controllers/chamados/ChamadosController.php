@@ -185,4 +185,5 @@ class ChamadosController extends Controller
             'setores' => $setores
         ]);
     }
+
 }
