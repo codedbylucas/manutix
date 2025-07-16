@@ -12,19 +12,22 @@
                     </ol>
 
                     <!-- Gráfico de Barras: Chamados por Técnico -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar me-1"></i>
-                            Chamados por Técnico
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myBarChart" style="max-width: 600px; max-height: 400px;"></canvas>
+                   <div class="row">
+                    <!-- Gráfico de Barras -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Chamados por Técnico
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myBarChart" style="max-width: 100%; max-height: 300px;"></canvas>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Gráfico de Pizza: Status dos Chamados -->
-                    <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                    <!-- Gráfico de Pizza -->
+                    <div class="col-md-6">
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-chart-pie me-1"></i>
@@ -36,7 +39,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </main>
         </div>
