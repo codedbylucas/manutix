@@ -43,14 +43,17 @@ class Chamado extends Model {
                 s.prioridade,
                 s.tipo_servico_id,
                 s.setor_id,
-                s.tecnico_id,                 -- ainda trazemos o ID
+                s.tecnico_id,
                 s.descricao,
                 ts.nome AS tipo_servico,
-                u.nome AS nome_tecnico        -- aqui já vem o nome
+                u.nome AS nome_tecnico,
+                EXISTS (
+                    SELECT 1 FROM avaliacoes a WHERE a.solicitacao_id = s.id
+                ) AS avaliada
             FROM solicitacoes s
             LEFT JOIN tipos_servico ts ON ts.id = s.tipo_servico_id
-            LEFT JOIN usuarios      u  ON u.id  = s.tecnico_id   -- junta com usuários
-            WHERE s.usuario_id = :usuarioId                       -- se o filtro fizer sentido
+            LEFT JOIN usuarios u ON u.id = s.tecnico_id
+            WHERE s.usuario_id = :usuarioId
             ORDER BY s.id DESC
         ";
 

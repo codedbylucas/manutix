@@ -26,7 +26,6 @@ class AvaliacoesController extends Controller
     public function salvar()
     {
         try {
-            // Verifica se os dados foram enviados
             $nota = $_POST['nota'] ?? null;
             $comentario = $_POST['comentario'] ?? null;
             $solicitacaoId = $_POST['solicitacao_id'] ?? null;
@@ -37,17 +36,14 @@ class AvaliacoesController extends Controller
                 return;
             }
 
-            // Conexão com o banco
             $pdo = Database::getInstance();
 
-            // Inserção no banco
             $stmt = $pdo->prepare("INSERT INTO avaliacoes (solicitacao_id, nota, comentario) VALUES (:solicitacao_id, :nota, :comentario)");
             $stmt->bindValue(':solicitacao_id', $solicitacaoId);
             $stmt->bindValue(':nota', $nota);
             $stmt->bindValue(':comentario', $comentario);
             $stmt->execute();
 
-            // Sucesso
             echo json_encode(['status' => 'ok']);
         } catch (Exception $e) {
             http_response_code(500);
