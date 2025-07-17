@@ -15,6 +15,7 @@
                             <table id="minhasSolicitacoes" class="table">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Status</th>
                                         <th>Título</th>
                                         <th>Tipo de Serviço</th>
@@ -25,6 +26,7 @@
                                 <tbody>
                                     <?php foreach ($chamados as $chamado): ?>
                                         <tr>
+                                            <td><?= htmlspecialchars($chamado['id']) ?></td>
                                             <td>
                                                <?php
                                                     switch ($chamado['status']) {
@@ -71,9 +73,21 @@
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                     <?php if ($chamado['status'] === 'concluido'): ?>
-                                                        <button class="btn btn-sm btn-warning" onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
-                                                            <i class="fas fa-star"></i>
-                                                        </button>
+                                                        <?php if (!$chamado['avaliada']): ?>
+                                                            <button 
+                                                                class="btn btn-sm btn-warning text-dark d-flex align-items-center gap-1 botao-avaliar" 
+                                                                onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')"
+                                                                title="Avaliar chamado"
+                                                            >
+                                                                <i class="fas fa-star"></i>
+                                                                <span>Avaliar</span>
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <div class="d-flex align-items-center text-muted" title="Já avaliado">
+                                                                <i class="fas fa-star text-success me-1"></i>
+                                                                <small>Avaliado</small>
+                                                            </div>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 </div>
                                             </td>
@@ -99,7 +113,6 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="solicitacao_id" id="solicitacaoIdAvaliado" />
-
                         <input type="hidden" name="titulo_chamado" id="tituloChamadoAvaliado" />
 
                         <div class="row mb-3">
