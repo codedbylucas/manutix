@@ -17,7 +17,6 @@ $router->get('/grafico/status', 'DashboardController@dadosGraficoStatus');
 $router->get('/grafico/tecnico', 'DashboardController@dadosGraficoTecnico');
 
 // CHAMADOS
-// $router->get('/chamados/novo', 'chamados\ChamadosController@index');
 $router->post('/chamados/novo', 'chamados\ChamadosController@salvar');
 $router->get('/chamados', 'chamados\ChamadosController@listar');
 $router->get('/chamados/novo', 'chamados\ChamadosController@novo');
