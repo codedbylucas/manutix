@@ -25,11 +25,6 @@ class ChamadosController extends Controller
         }
     }
 
-    public function index()
-    {
-        $this->render('chamados/cadastro_chamados');
-    }
-
     public function salvar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
