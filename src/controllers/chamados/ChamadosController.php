@@ -168,11 +168,17 @@ class ChamadosController extends Controller
         $id = filter_input(INPUT_POST, 'id');
 
         if ($id) {
-            \src\models\Chamado::delete()->where('id', $id)->execute();
+            // Buscar o chamado para verificar o tecnico_id
+            $chamado = \src\models\Chamado::select()->where('id', $id)->one();
+
+            // Só excluir se tecnico_id for NULL
+            if ($chamado && $chamado['tecnico_id'] === null) {
+                \src\models\Chamado::delete()->where('id', $id)->execute();
+            }
         }
 
         $usuarioId = $_SESSION['usuario_id'];
-        $chamados = \src\models\Chamado::listarTodos($usuarioId);
+        $chamados = \src\models\Chamado::listarPorUsuario($usuarioId);
         $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
 
         $this->render('chamados/listar_chamados', [

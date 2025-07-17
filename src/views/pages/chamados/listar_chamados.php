@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-control" name="status" id="editStatus" required>
+                                    <select class="form-control" name="status" id="editStatus" disabled>
                                         <option value="novo">Novo</option>
                                         <option value="aguardando">Aguardando</option>
                                         <option value="andamento">Em Andamento</option>
@@ -207,10 +207,6 @@
                             </div>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input class="form-control" type="file" name="anexo" />
-                            <label for="anexo">Anexo (opcional)</label>
-                        </div>
                     </div>
 
                     <div class="modal-footer">
