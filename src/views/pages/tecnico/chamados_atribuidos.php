@@ -66,9 +66,11 @@
                                                         })">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-success" onclick="abrirModalFinalizacao('<?= $chamado['id'] ?>', '<?= addslashes($chamado['titulo']) ?>')">
-                                                        <i class="fas fa-check"></i> Finalizar
-                                                    </button>
+                                                    <?php if ($chamado['status'] !== 'concluido'): ?>
+                                                        <button class="btn btn-sm btn-success" onclick="abrirModalFinalizacao('<?= $chamado['id'] ?>', '<?= addslashes($chamado['titulo']) ?>')">
+                                                            <i class="fas fa-check"></i> Finalizar
+                                                        </button>
+                                                    <?php endif; ?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -120,7 +122,6 @@
                                         <option value="aguardando">Aguardando</option>
                                         <option value="andamento">Em Andamento</option>
                                         <option value="aguardando_material">Aguardando Material</option>
-                                        <option value="concluido">Concluído</option>
                                         <option value="cancelado">Cancelado</option>
                                     </select>
                                     <label>Status</label>
@@ -150,11 +151,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-floating mb-3">
-                            <input class="form-control" type="file" name="anexo" />
-                            <label for="anexo">Anexo (opcional)</label>
-                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -175,7 +171,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="finalizarChamadoId">
+                        <input type="hidden" name="id" id="finalizarChamadoId" value="<?= $chamado['id'] ?>">
                         <p>Deseja finalizar o chamado: <strong id="finalizarChamadoTitulo"></strong>?</p>
                         <div class="form-floating">
                             <select class="form-control" name="motivo_finalizacao" required>

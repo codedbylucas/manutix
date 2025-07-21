@@ -101,4 +101,28 @@ class TecnicoController extends Controller
             echo "Dados inválidos.";
         }
     }
+
+    public function finalizar()
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+        if ($id) {
+            $chamado = Chamado::select()->where('id', $id)->one();
+
+            if ($chamado) {
+                Chamado::update()
+                    ->set(['status' => 'concluido']) // ou 'concluído' se for com acento no banco
+                    ->where('id', $id)
+                    ->execute();
+
+                $this->redirect('/tecnico/chamados');
+            } else {
+                echo "Chamado não encontrado.";
+            }
+        } else {
+            echo "ID inválido.";
+        }
+    }
 }
+
+    
