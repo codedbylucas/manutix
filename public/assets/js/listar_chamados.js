@@ -24,10 +24,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 return res.json();
             })
             .then(data => {
-                alert('Avaliação salva com sucesso!');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('modalAvaliacao'));
-                modal.hide();
-                this.reset();
+                if (data.status === 'ok') {
+                    // Fecha a modal (caso use Bootstrap 5)
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalAvaliacao'));
+                    modal.hide();
+
+                    // Recarrega a página para atualizar status "Avaliado"
+                    location.reload();
+                } else {
+                    alert(data.erro || 'Erro ao salvar avaliação.');
+                }
             })
             .catch(error => {
                 console.error('Erro ao salvar avaliação:', error);
