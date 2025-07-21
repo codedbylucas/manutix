@@ -31,7 +31,7 @@ class ChamadosController extends Controller
             $titulo = $_POST['titulo'] ?? '';
             $descricao = $_POST['descricao'] ?? '';
             $prioridade = $_POST['prioridade'] ?? '';
-            $status = $_POST['status'] ?? 'novo';
+            $status = 'novo';
             $setor_id = $_POST['setor_id'] ?? '';
             $tipo_servico_id = $_POST['tipo_servico_id'] ?? '';
             $usuario_id = $_SESSION['usuario_id'] ?? '';

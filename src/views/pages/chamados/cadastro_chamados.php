@@ -47,15 +47,13 @@
 
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
-                                                <select class="form-select" name="status" required>
-                                                    <option value="">Selecione</option>
-                                                    <option value="novo">Novo</option>
-                                                    <option value="andamento">Em Andamento</option>
-                                                    <option value="aguardando_material">Aguardando Material</option>
-                                                    <option value="concluido">Concluído</option>
-                                                    <option value="cancelado">Cancelado</option>
+                                                <select class="form-select" name="tipo_servico_id" required>
+                                                    <option value="">Selecione o Tipo de Serviço</option>
+                                                    <option value="1">Manutenção</option>
+                                                    <option value="2">Suporte Técnico</option>
+                                                    <option value="3">Infraestrutura</option>
                                                 </select>
-                                                <label>Status <span class="text-danger">*</span></label>
+                                                <label>Tipo de Serviço <span class="text-danger">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -70,18 +68,6 @@
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Setor <span class="text-danger">*</span></label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <div class="form-floating">
-                                                <select class="form-select" name="tipo_servico_id" required>
-                                                    <option value="">Selecione o Tipo de Serviço</option>
-                                                    <option value="1">Manutenção</option>
-                                                    <option value="2">Suporte Técnico</option>
-                                                    <option value="3">Infraestrutura</option>
-                                                </select>
-                                                <label>Tipo de Serviço <span class="text-danger">*</span></label>
                                             </div>
                                         </div>
                                     </div>
