@@ -13,18 +13,18 @@
 
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body p-4">
-                            <form action="<?=$base?>/chamados/novo" method="POST" enctype="multipart/form-data">
+                            <form id="formSolicitacao" action="<?=$base?>/chamados/novo" method="POST" enctype="multipart/form-data">
                                 
                                 <fieldset class="border p-3 mb-4">
                                     <legend class="w-auto px-2">Informações da Solicitação</legend>
 
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" name="titulo" type="text" placeholder="Título da solicitação" required />
+                                        <input class="form-control" name="titulo" type="text" placeholder="Título da solicitação" />
                                         <label for="titulo">Título <span class="text-danger">*</span></label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <textarea class="form-control" name="descricao" placeholder="Descreva a solicitação" style="height: 120px; resize: none;" required></textarea>
+                                        <textarea class="form-control" name="descricao" placeholder="Descreva a solicitação" style="height: 120px; resize: none;"></textarea>
                                         <label for="descricao">Descrição <span class="text-danger">*</span></label>
                                     </div>
                                 </fieldset>
@@ -35,7 +35,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
-                                                <select class="form-select" name="prioridade" required>
+                                                <select class="form-select" name="prioridade" >
                                                     <option value="">Selecione</option>
                                                     <option value="baixa">Baixa</option>
                                                     <option value="media">Média</option>
@@ -47,7 +47,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
-                                                <select class="form-select" name="tipo_servico_id" required>
+                                                <select class="form-select" name="tipo_servico_id" >
                                                     <option value="">Selecione o Tipo de Serviço</option>
                                                     <option value="1">Manutenção</option>
                                                     <option value="2">Suporte Técnico</option>
@@ -61,7 +61,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
-                                                <select class="form-select" name="setor_id" required>
+                                                <select class="form-select" name="setor_id" >
                                                     <option value="">Selecione o Setor</option>
                                                     <?php foreach ($setores as $setor): ?>
                                                         <option value="<?= $setor['id'] ?>"><?= htmlspecialchars($setor['nome']) ?></option>
@@ -72,12 +72,6 @@
                                         </div>
                                     </div>
                                 </fieldset>
-
-                                <!-- Caso queira permitir upload futuramente:
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="file" name="anexo" />
-                                    <label for="anexo">Anexo (opcional)</label>
-                                </div> -->
 
                                 <div class="d-flex justify-content-end gap-2">
                                     <button type="reset" class="btn btn-secondary">
@@ -96,4 +90,20 @@
             <?php $render('footer'); ?>
         </div>
     </div>
+    <?php if (!empty($_SESSION['sucesso_cadastro'])): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: '<?= $_SESSION['sucesso_cadastro'] ?>',
+                confirmButtonColor: '#28a745'
+            });
+        </script>
+        <?php unset($_SESSION['sucesso_cadastro']); // limpa a sessão para não mostrar de novo ?>
+    <?php endif; ?>
 </body>
+
+<script>
+    const baseUrl = "<?=$base?>";
+</script>
+<script src="<?=$base?>/assets/js/cadastro_chamados.js"></script>
