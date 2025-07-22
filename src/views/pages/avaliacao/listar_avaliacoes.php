@@ -25,7 +25,9 @@
                                     <tr>
                                         <td><?= $av['id'] ?></td>
                                         <td><?= htmlspecialchars($av['titulo']) ?></td>
-                                        <td><?= str_repeat('⭐', (int)$av['nota']) ?></td>
+                                        <td data-nota="<?= $av['nota'] ?>">
+                                            <?= str_repeat('⭐', (int)$av['nota']) ?>
+                                        </td>
                                         <td><?= htmlspecialchars($av['comentario']) ?></td>
                                     </tr>
                                 <?php endforeach ?>
@@ -38,4 +40,7 @@
         </div>
     </div>
 </body>
-
+<script>
+    const baseUrl = "<?=$base?>";
+</script>
+<script src="<?=$base?>/assets/js/avaliacoes.js"></script>
