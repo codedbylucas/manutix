@@ -65,6 +65,8 @@ class ChamadosController extends Controller
             $salvo = Chamado::criar($dadosChamado);
 
             if ($salvo) {
+                 $_SESSION['sucesso_cadastro'] = "Solicitação cadastrada com sucesso!";
+
                 $this->render('chamados/cadastro_chamados');
                 exit;
             } else {

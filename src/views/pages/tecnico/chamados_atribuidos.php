@@ -54,19 +54,19 @@
                                             <td><?= strtoupper(htmlspecialchars($chamado['prioridade']) )?></td>
                                            <td>
                                                 <div class="d-flex gap-1">
-                                                    <button class="btn btn-sm btn-primary" 
-                                                        onclick="editarSolicitacao({
-                                                            id: '<?= $chamado['id'] ?>',
-                                                            titulo: '<?= $chamado['titulo'] ?>',
-                                                            descricao: '<?= $chamado['descricao'] ?>',
-                                                            prioridade: '<?= $chamado['prioridade'] ?>',
-                                                            status: '<?= $chamado['status'] ?>',
-                                                            setor_id: '<?= $chamado['setor_id'] ?>',
-                                                            tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>'
-                                                        })">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <?php if ($chamado['status'] !== 'concluido'): ?>
+                                                <?php if ($chamado['status'] !== 'concluido'): ?>
+                                                        <button class="btn btn-sm btn-primary" 
+                                                            onclick="editarSolicitacao({
+                                                                id: '<?= $chamado['id'] ?>',
+                                                                titulo: '<?= $chamado['titulo'] ?>',
+                                                                descricao: '<?= $chamado['descricao'] ?>',
+                                                                prioridade: '<?= $chamado['prioridade'] ?>',
+                                                                status: '<?= $chamado['status'] ?>',
+                                                                setor_id: '<?= $chamado['setor_id'] ?>',
+                                                                tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>'
+                                                            })">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
                                                         <button class="btn btn-sm btn-success" onclick="abrirModalFinalizacao('<?= $chamado['id'] ?>', '<?= addslashes($chamado['titulo']) ?>')">
                                                             <i class="fas fa-check"></i> Finalizar
                                                         </button>
@@ -118,8 +118,6 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-control" name="status" id="editStatus" required>
-                                        <option value="novo">Novo</option>
-                                        <option value="aguardando">Aguardando</option>
                                         <option value="andamento">Em Andamento</option>
                                         <option value="aguardando_material">Aguardando Material</option>
                                         <option value="cancelado">Cancelado</option>
@@ -163,7 +161,7 @@
     </div>
     <!-- Modal de Finalização -->
     <div class="modal fade" id="modalFinalizacao" tabindex="-1" aria-labelledby="modalFinalizacaoLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal-dialog">
             <div class="modal-content shadow-lg border-0 rounded-lg">
                 <form action="<?=$base?>/chamados/finalizar" method="POST">
                     <div class="modal-header">
@@ -171,17 +169,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="finalizarChamadoId" value="<?= $chamado['id'] ?>">
-                        <p>Deseja finalizar o chamado: <strong id="finalizarChamadoTitulo"></strong>?</p>
-                        <div class="form-floating">
-                            <select class="form-control" name="motivo_finalizacao" required>
-                                <option value="">Selecione o motivo</option>
-                                <option value="resolvido">Resolvido</option>
-                                <option value="encaminhado_errado">Encaminhado Errado</option>
-                                <option value="falta_de_informacao">Falta de Informação</option>
-                            </select>
-                            <label>Motivo da Finalização</label>
-                        </div>
+                        <input type="hidden" name="id" id="finalizarChamadoId" value="">
+                        <p>Tem certeza que deseja finalizar o chamado: <strong id="finalizarChamadoTitulo"></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Finalizar</button>
