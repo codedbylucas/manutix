@@ -87,4 +87,4 @@
                 </div>
             </main>
         </div>
-        <?php $render('footer'); ?>
+<?php $render('footer'); ?>

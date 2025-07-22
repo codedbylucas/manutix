@@ -10,7 +10,7 @@ class ChamadosController extends Controller
 {
     public function __construct()
     {
-        $this->protegerAcesso(['funcionario', 'admin']);
+        $this->protegerAcesso(['admin', 'tecnico', 'funcionario']);
     }
 
     private function protegerAcesso(array $tiposPermitidos)

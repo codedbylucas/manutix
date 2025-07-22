@@ -48,6 +48,6 @@ class TodosChamadosController extends Controller
                 ->execute();
         }
 
-        $this->redirect('/tecnico/todosChamados');
+        $this->redirect('/tecnico/chamados');
     }
 }
