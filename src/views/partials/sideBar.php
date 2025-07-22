@@ -1,3 +1,4 @@
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="<?= $base ?>/dashboard">Manutix</a>
@@ -49,6 +50,7 @@
                             </nav>
                         </div>
 
+                        <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'admin' || $_SESSION['usuario_tipo'] === 'tecnico'): ?>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTecnico" aria-expanded="false" aria-controls="collapseTecnico">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                             Técnico
@@ -66,6 +68,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
                             Avaliações
                         </a>
+                        <?php endif; ?>
 
                         <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'admin'): ?>
                             <div class="sb-sidenav-menu-heading">Usuários</div>

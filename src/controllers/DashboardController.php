@@ -7,6 +7,23 @@ use src\models\Chamado;
 
 class DashBoardController extends Controller
 {
+    public function __construct()
+    {
+        $this->protegerAcesso(['admin', 'tecnico', 'funcionario']);
+    }
+
+    private function protegerAcesso(array $tiposPermitidos)
+    {
+        if (
+            !isset($_SESSION['usuario_id']) ||
+            !isset($_SESSION['usuario_tipo']) ||
+            !in_array($_SESSION['usuario_tipo'], $tiposPermitidos)
+        ) {
+            $this->redirect('/login');
+            exit;
+        }
+    }
+
     public function index()
     {
         if (!isset($_SESSION['usuario_id'])) {
