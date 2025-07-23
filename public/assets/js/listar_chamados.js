@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    $('#minhasSolicitacoes').DataTable();
+    $('#minhasSolicitacoes').DataTable({
+        language: {
+            url: 'https://cdn.jsdelivr.net/npm/datatables.net-plugins/i18n/pt-BR.json'
+        },
+        columnDefs: [
+            { type: 'date-eu', targets: [5] } // Altere o índice conforme a posição da coluna de data
+        ]
+    });
 
     const formAvaliacao = document.getElementById('formAvaliacao');
 
@@ -77,3 +84,31 @@ function excluirSolicitacao(titulo, id) {
     const modalExclusao = new bootstrap.Modal(document.getElementById('modalExclusao'));
     modalExclusao.show();
 }
+
+// Filtro de dada
+document.addEventListener('DOMContentLoaded', function () {
+    const table = $('#minhasSolicitacoes').DataTable();
+    const minDateInput = document.getElementById('minDate');
+    const maxDateInput = document.getElementById('maxDate');
+
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        console.log(data);
+        const min = minDateInput.value ? new Date(minDateInput.value) : null;
+        const max = maxDateInput.value ? new Date(maxDateInput.value) : null;
+
+        const dateStr = data[5]; // Ajuste o índice da coluna de acordo com a posição da data_abertura
+        const parts = dateStr.split(' ')[0].split('/'); // pega apenas a parte da data
+        const rowDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`); // yyyy-mm-dd
+
+        if (
+            (!min || rowDate >= min) &&
+            (!max || rowDate <= max)
+        ) {
+            return true;
+        }
+        return false;
+    });
+
+    minDateInput.addEventListener('change', () => table.draw());
+    maxDateInput.addEventListener('change', () => table.draw());
+});

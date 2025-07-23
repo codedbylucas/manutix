@@ -12,6 +12,16 @@
                             Minhas Solicitações
                         </div>
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="minDate">Data Inicial</label>
+                                    <input type="date" id="minDate" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="maxDate">Data Final</label>
+                                    <input type="date" id="maxDate" class="form-control">
+                                </div>
+                            </div>
                             <table id="minhasSolicitacoes" class="table">
                                 <thead>
                                     <tr>
@@ -20,6 +30,7 @@
                                         <th>Título</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Prioridade</th>
+                                        <th>Data de Abertura</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -54,44 +65,45 @@
                                             <td><?= htmlspecialchars($chamado['titulo']) ?></td>
                                             <td><?= htmlspecialchars($chamado['tipo_servico']) ?></td>
                                             <td><?= strtoupper(htmlspecialchars($chamado['prioridade']) )?></td>
-                                           <td>
-                                                <div class="d-flex gap-1">
-                                                    <button class="btn btn-sm btn-primary" 
-                                                        onclick="editarSolicitacao({
-                                                            id: '<?= $chamado['id'] ?>',
-                                                            titulo: '<?= $chamado['titulo'] ?>',
-                                                            descricao: '<?= $chamado['descricao'] ?>',
-                                                            prioridade: '<?= $chamado['prioridade'] ?>',
-                                                            status: '<?= $chamado['status'] ?>',
-                                                            setor_id: '<?= $chamado['setor_id'] ?>',
-                                                            tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>',
-                                                            usuario_id: '<?= $chamado['usuario_id'] ?>'
-                                                        })">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-danger" 
-                                                        onclick="excluirSolicitacao('<?= htmlspecialchars($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                    <?php if ($chamado['status'] === 'concluido'): ?>
-                                                        <?php if (!$chamado['avaliada']): ?>
-                                                            <button 
-                                                                class="btn btn-sm btn-warning text-dark d-flex align-items-center gap-1 botao-avaliar" 
-                                                                onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')"
-                                                                title="Avaliar chamado"
-                                                            >
-                                                                <i class="fas fa-star"></i>
-                                                                <span>Avaliar</span>
-                                                            </button>
-                                                        <?php else: ?>
-                                                            <div class="d-flex align-items-center text-muted" title="Já avaliado">
-                                                                <i class="fas fa-star text-success me-1"></i>
-                                                                <small>Avaliado</small>
-                                                            </div>
+                                            <td><?= date('d/m/Y H:i', strtotime($chamado['data_abertura'])) ?></td>
+                                            <td>
+                                                    <div class="d-flex gap-1">
+                                                        <button class="btn btn-sm btn-primary" 
+                                                            onclick="editarSolicitacao({
+                                                                id: '<?= $chamado['id'] ?>',
+                                                                titulo: '<?= $chamado['titulo'] ?>',
+                                                                descricao: '<?= $chamado['descricao'] ?>',
+                                                                prioridade: '<?= $chamado['prioridade'] ?>',
+                                                                status: '<?= $chamado['status'] ?>',
+                                                                setor_id: '<?= $chamado['setor_id'] ?>',
+                                                                tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>',
+                                                                usuario_id: '<?= $chamado['usuario_id'] ?>'
+                                                            })">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" 
+                                                            onclick="excluirSolicitacao('<?= htmlspecialchars($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                        <?php if ($chamado['status'] === 'concluido'): ?>
+                                                            <?php if (!$chamado['avaliada']): ?>
+                                                                <button 
+                                                                    class="btn btn-sm btn-warning text-dark d-flex align-items-center gap-1 botao-avaliar" 
+                                                                    onclick="abrirModalAvaliacao('<?= addslashes($chamado['titulo']) ?>', '<?= $chamado['id'] ?>')"
+                                                                    title="Avaliar chamado"
+                                                                >
+                                                                    <i class="fas fa-star"></i>
+                                                                    <span>Avaliar</span>
+                                                                </button>
+                                                            <?php else: ?>
+                                                                <div class="d-flex align-items-center text-muted" title="Já avaliado">
+                                                                    <i class="fas fa-star text-success me-1"></i>
+                                                                    <small>Avaliado</small>
+                                                                </div>
+                                                            <?php endif; ?>
                                                         <?php endif; ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </td>
+                                                    </div>
+                                                </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
