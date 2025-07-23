@@ -44,6 +44,7 @@ class Chamado extends Model {
                 s.tipo_servico_id,
                 s.setor_id,
                 s.tecnico_id,
+                s.usuario_id,
                 s.descricao,
                 ts.nome AS tipo_servico,
                 u.nome AS nome_tecnico,

@@ -65,12 +65,19 @@ class ChamadosController extends Controller
             $salvo = Chamado::criar($dadosChamado);
 
             if ($salvo) {
-                 $_SESSION['sucesso_cadastro'] = "Solicitação cadastrada com sucesso!";
+                $_SESSION['sucesso_cadastro'] = "Solicitação cadastrada com sucesso!";
 
-                $this->render('chamados/cadastro_chamados');
-                exit;
-            } else {
-                echo "Erro ao cadastrar o chamado.";
+                // Buscar dados novamente
+                $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
+                $usuarios = \src\models\Usuario::select(['id', 'nome'])->orderBy('nome')->get();
+                $tiposServico = \src\models\TipoServico::select(['id', 'nome'])->orderBy('nome')->get(); 
+
+                $this->render('chamados/cadastro_chamados', [
+                    'setores' => $setores,
+                    'usuarios' => $usuarios,
+                    'tiposServico' => $tiposServico 
+                ]);
+                exit;   
             }
         } else {
             echo "Método inválido.";
@@ -82,20 +89,24 @@ class ChamadosController extends Controller
         $usuarioId = $_SESSION['usuario_id'];
         $chamados = \src\models\Chamado::listarPorUsuario($usuarioId);
         $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
+        $tiposServico = \src\models\TipoServico::select(['id', 'nome'])->orderBy('nome')->get();
 
         $this->render('chamados/listar_chamados', [
             'chamados' => $chamados,
-            'setores' => $setores
+            'setores' => $setores,
+            'tiposServico' => $tiposServico
         ]);
     }
 
     public function novo() {
         $setores = \src\models\Setor::select(['id', 'nome'])->orderBy('nome')->get();
         $usuarios = \src\models\Usuario::select(['id', 'nome'])->orderBy('nome')->get();
+        $tiposServico = \src\models\TipoServico::select(['id', 'nome'])->orderBy('nome')->get(); 
 
         $this->render('chamados/cadastro_chamados', [
             'setores' => $setores,
-            'usuarios' => $usuarios
+            'usuarios' => $usuarios,
+            'tiposServico' => $tiposServico 
         ]);
     }
 
@@ -107,9 +118,10 @@ class ChamadosController extends Controller
         $prioridade = filter_input(INPUT_POST, 'prioridade');
         $status = filter_input(INPUT_POST, 'status');
         $setor_id = filter_input(INPUT_POST, 'setor_id', FILTER_VALIDATE_INT);
-        $tipo_servico_id = filter_input(INPUT_POST, 'tipo_servico_id', FILTER_VALIDATE_INT);
+        $tipo_servico_id = filter_input(INPUT_POST, 'tipo_servico_id', FILTER_SANITIZE_NUMBER_INT);
 
-        if ($id && $titulo && $descricao && $prioridade && $status && $setor_id && $tipo_servico_id) {
+
+        if ($id && $titulo && $descricao && $prioridade && $status && $setor_id && is_numeric($tipo_servico_id)) {
             $chamado = Chamado::select()->where('id', $id)->one();
 
             if ($chamado) {
@@ -170,10 +182,8 @@ class ChamadosController extends Controller
         $id = filter_input(INPUT_POST, 'id');
 
         if ($id) {
-            // Buscar o chamado para verificar o tecnico_id
             $chamado = \src\models\Chamado::select()->where('id', $id)->one();
 
-            // Só excluir se tecnico_id for NULL
             if ($chamado && $chamado['tecnico_id'] === null) {
                 \src\models\Chamado::delete()->where('id', $id)->execute();
             }
