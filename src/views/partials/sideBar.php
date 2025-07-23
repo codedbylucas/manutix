@@ -92,6 +92,7 @@
                             <div class="collapse" id="collapseGestao" aria-labelledby="headingGestao" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?= $base ?>/admin/setores">Gerenciar Setores</a>
+                                    <a class="nav-link" href="<?= $base ?>/admin/tipos_servico">Gerenciar Tipos de Serviço</a>
                                 </nav>
                             </div>
                         <?php endif; ?>
