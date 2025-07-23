@@ -6,7 +6,7 @@
                     <main>
                         <div class="container-fluid px-4">
                             <div>
-                                <h1 class="mt-4">Usuários</h1>
+                                <h1 class="mt-4">Gestão</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item active">Setores</li>
                                 </ol>

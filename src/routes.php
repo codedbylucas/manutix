@@ -44,6 +44,13 @@ $router->post('/admin/setores/novo', 'admin\GestaoSetoresController@salvar');
 $router->post('/admin/setores/editar', 'admin\GestaoSetoresController@editar');
 $router->post('/admin/setores/excluir', 'admin\GestaoSetoresController@excluir');
 
+// SERVIÇOS
+$router->get('/admin/tipos_servico', 'admin\GestaoTiposServicoController@tipos');
+$router->get('/admin/tipos_servico/listar', 'admin\GestaoTiposServicoController@listar');
+$router->post('/admin/tipos_servico/novo', 'admin\GestaoTiposServicoController@salvar');
+$router->post('/admin/tipos_servico/editar', 'admin\GestaoTiposServicoController@editar');
+$router->post('/admin/tipos_servico/excluir', 'admin\GestaoTiposServicoController@excluir');
+
 // AVALIAÇÃO
 $router->get('/avaliacoes', 'avaliacao\AvaliacoesController@index');
 $router->post('/avaliacoes/salvar', 'avaliacao\AvaliacoesController@salvar');
