@@ -47,11 +47,11 @@
 
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
-                                                <select class="form-select" name="tipo_servico_id" >
+                                                <select class="form-select" name="tipo_servico_id">
                                                     <option value="">Selecione o Tipo de Serviço</option>
-                                                    <option value="1">Manutenção</option>
-                                                    <option value="2">Suporte Técnico</option>
-                                                    <option value="3">Infraestrutura</option>
+                                                    <?php foreach ($tiposServico as $tipo): ?>
+                                                        <option value="<?= $tipo['id'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                                 <label>Tipo de Serviço <span class="text-danger">*</span></label>
                                             </div>

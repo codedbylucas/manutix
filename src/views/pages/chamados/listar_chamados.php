@@ -64,7 +64,8 @@
                                                             prioridade: '<?= $chamado['prioridade'] ?>',
                                                             status: '<?= $chamado['status'] ?>',
                                                             setor_id: '<?= $chamado['setor_id'] ?>',
-                                                            tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>'
+                                                            tipo_servico_id: '<?= $chamado['tipo_servico_id'] ?>',
+                                                            usuario_id: '<?= $chamado['usuario_id'] ?>'
                                                         })">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
@@ -184,7 +185,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-control" name="status" id="editStatus" disabled>
+                                    <select class="form-control" name="status" id="editStatus">
                                         <option value="novo">Novo</option>
                                         <option value="aguardando">Aguardando</option>
                                         <option value="andamento">Em Andamento</option>
@@ -211,17 +212,15 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-control" name="tipo_servico_id" id="editTipoServico" required>
-                                        <option value="1">Manutenção</option>
-                                        <option value="2">Suporte Técnico</option>
-                                        <option value="3">Infraestrutura</option>
+                                        <?php foreach ($tiposServico as $tipo): ?>
+                                            <option value="<?= $tipo['id'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <label>Tipo de Serviço</label>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -252,7 +251,7 @@
             </div>
         </div>
     </div>
-    <script>
-        const baseUrl = "<?=$base?>";
-    </script>
-    <script src="<?=$base?>/assets/js/listar_chamados.js"></script>
+<script>
+    const baseUrl = "<?=$base?>";
+</script>
+<script src="<?=$base?>/assets/js/listar_chamados.js"></script>
