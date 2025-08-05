@@ -111,6 +111,7 @@ class Chamado extends Model {
                 s.setor_id,
                 s.tecnico_id,
                 s.descricao,
+                s.data_abertura,
                 ts.nome AS tipo_servico,
                 u.nome  AS nome_tecnico,      -- nome do técnico (se houver)
                 su.nome AS nome_solicitante   -- nome de quem abriu o chamado

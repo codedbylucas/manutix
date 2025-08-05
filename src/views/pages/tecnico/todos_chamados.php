@@ -19,6 +19,7 @@
                                         <th>Título</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Prioridade</th>
+                                        <th>Data de Abertura</th>
                                         <th>Técnico</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,7 @@
                                             <td><?= htmlspecialchars($chamado['titulo']) ?></td>
                                             <td><?= htmlspecialchars($chamado['tipo_servico']) ?></td>
                                             <td><?= strtoupper(htmlspecialchars($chamado['prioridade']) )?></td>
+                                            <td><?= date('d/m/Y H:i', strtotime($chamado['data_abertura'])) ?></td>
                                             <td>
                                                 <?php if (!empty($chamado['nome_tecnico'])): ?>
                                                     <?= htmlspecialchars($chamado['nome_tecnico']) ?>

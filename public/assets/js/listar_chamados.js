@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    $('#minhasSolicitacoes').DataTable({
+    // Inicializa o DataTables apenas uma vez
+    const table = $('#minhasSolicitacoes').DataTable({
         language: {
             url: 'https://cdn.jsdelivr.net/npm/datatables.net-plugins/i18n/pt-BR.json'
         },
@@ -8,8 +9,28 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
     });
 
-    const formAvaliacao = document.getElementById('formAvaliacao');
+    // Filtro de data
+    const minDateInput = document.getElementById('minDate');
+    const maxDateInput = document.getElementById('maxDate');
 
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        const min = minDateInput.value ? new Date(minDateInput.value) : null;
+        const max = maxDateInput.value ? new Date(maxDateInput.value) : null;
+
+        const dateStr = data[5]; // Ajuste conforme a coluna da data
+        if (!dateStr) return false;
+
+        const parts = dateStr.split(' ')[0].split('/'); // "dd/mm/yyyy"
+        const rowDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`); // yyyy-mm-dd
+
+        return (!min || rowDate >= min) && (!max || rowDate <= max);
+    });
+
+    minDateInput.addEventListener('change', () => table.draw());
+    maxDateInput.addEventListener('change', () => table.draw());
+
+    // Formulário de avaliação
+    const formAvaliacao = document.getElementById('formAvaliacao');
     if (formAvaliacao) {
         formAvaliacao.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -32,11 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.status === 'ok') {
-                    // Fecha a modal (caso use Bootstrap 5)
                     const modal = bootstrap.Modal.getInstance(document.getElementById('modalAvaliacao'));
                     modal.hide();
-
-                    // Recarrega a página para atualizar status "Avaliado"
                     location.reload();
                 } else {
                     alert(data.erro || 'Erro ao salvar avaliação.');
@@ -84,31 +102,3 @@ function excluirSolicitacao(titulo, id) {
     const modalExclusao = new bootstrap.Modal(document.getElementById('modalExclusao'));
     modalExclusao.show();
 }
-
-// Filtro de dada
-document.addEventListener('DOMContentLoaded', function () {
-    const table = $('#minhasSolicitacoes').DataTable();
-    const minDateInput = document.getElementById('minDate');
-    const maxDateInput = document.getElementById('maxDate');
-
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        console.log(data);
-        const min = minDateInput.value ? new Date(minDateInput.value) : null;
-        const max = maxDateInput.value ? new Date(maxDateInput.value) : null;
-
-        const dateStr = data[5]; // Ajuste o índice da coluna de acordo com a posição da data_abertura
-        const parts = dateStr.split(' ')[0].split('/'); // pega apenas a parte da data
-        const rowDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`); // yyyy-mm-dd
-
-        if (
-            (!min || rowDate >= min) &&
-            (!max || rowDate <= max)
-        ) {
-            return true;
-        }
-        return false;
-    });
-
-    minDateInput.addEventListener('change', () => table.draw());
-    maxDateInput.addEventListener('change', () => table.draw());
-});
